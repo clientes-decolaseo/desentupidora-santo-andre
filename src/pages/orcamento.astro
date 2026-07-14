@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Schema from '../components/Schema.astro';
+import empresa from '../data/empresa.json';
+
+const whatsappUrl = 'https://wa.me/5511949077562';
+const telefoneUrl = 'tel:+5511949077562';
+const siteUrl = Astro.site?.href ?? 'https://desentupidoraemsantoandre.app.br';
+const paginaUrl = new URL('/orcamento/', Astro.site).href;
+
+const reforcos = [
+  'Mais de 30 anos de experiência',
+  'Sem taxa de visita',
+  'Atendimento 24h',
+  'Santo André, São Bernardo do Campo e Diadema',
+];
+---
+
+<BaseLayout
+  title="Solicite seu Orçamento em Santo André"
+  description="Orçamento sem compromisso e sem taxa de visita. Responda rápido pelo WhatsApp ou ligue agora. Desentupidora Rápida Santo André."
+>
+  <Schema
+    slot="schema"
+    name={empresa.nome}
+    telephone={empresa.telefone}
+    areaServed={empresa.areasAtendidas}
+    url={siteUrl}
+    service={{
+      name: 'Orçamento de desentupimento',
+      description:
+        'Orçamento sem compromisso e sem taxa de visita para serviços de desentupimento em Santo André e região.',
+      url: paginaUrl,
+    }}
+  />
+
+  <section
+    class="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(160deg,#0c4a6e_0%,#075985_45%,#0f172a_100%)] text-white"
+    aria-labelledby="orcamento-titulo"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 opacity-35"
+      style="background-image: radial-gradient(circle at 15% 25%, rgba(56,189,248,0.35), transparent 40%), radial-gradient(circle at 85% 10%, rgba(16,185,129,0.22), transparent 32%);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sky-200">
+        Orçamento
+      </p>
+      <h1
+        id="orcamento-titulo"
+        class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+      >
+        Solicite seu Orçamento em Santo André
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-sky-50/95 sm:text-xl">
+        Orçamento sem compromisso e sem taxa de visita. Responda rápido pelo WhatsApp ou ligue
+        agora.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+        <a
+          href={whatsappUrl}
+          class="inline-flex min-h-14 items-center justify-center rounded-md bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-950/20 transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300 sm:min-w-[16rem]"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chamar no WhatsApp
+        </a>
+        <a
+          href={telefoneUrl}
+          class="inline-flex min-h-14 items-center justify-center rounded-md border-2 border-white/50 bg-white/10 px-8 py-4 text-lg font-bold text-white backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:min-w-[16rem]"
+        >
+          Ligar Agora — (11) 94907-7562
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50" aria-labelledby="reforcos-titulo">
+    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <h2 id="reforcos-titulo" class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+        Por que solicitar com a gente
+      </h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+        {
+          reforcos.map((item) => (
+            <li class="border-l-2 border-sky-600 pl-4 text-base font-medium text-slate-800">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-12 flex flex-col gap-4 sm:flex-row">
+        <a
+          href={whatsappUrl}
+          class="inline-flex min-h-14 flex-1 items-center justify-center rounded-md bg-emerald-600 px-8 py-4 text-lg font-bold text-white transition hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chamar no WhatsApp
+        </a>
+        <a
+          href={telefoneUrl}
+          class="inline-flex min-h-14 flex-1 items-center justify-center rounded-md border-2 border-slate-300 bg-white px-8 py-4 text-lg font-bold text-slate-900 transition hover:border-sky-600 hover:text-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+        >
+          Ligar Agora — (11) 94907-7562
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Content, frontmatter } from '../content/sobre.mdx';
+import empresa from '../data/empresa.json';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  mainEntity: {
+    '@type': 'Plumber',
+    name: empresa.nome,
+    telephone: `+${empresa.whatsapp}`,
+    areaServed: empresa.areasAtendidas.map((cidade) => ({
+      '@type': 'City',
+      name: cidade,
+    })),
+    priceRange: '$$',
+  },
+};
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <script slot="schema" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <article>
+    <div class="prose-sobre mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-sky-700">
+        Institucional
+      </p>
+      <Content />
+
+      <h2>Áreas atendidas</h2>
+      <p>
+        <a href="/areas-de-atendimento/santo-andre">Santo André</a>,
+        <a href="/areas-de-atendimento/sao-bernardo">São Bernardo do Campo</a> e
+        <a href="/areas-de-atendimento/diadema">Diadema</a>.
+      </p>
+
+      <p class="cta-links">
+        <a href="https://wa.me/5511949077562" target="_blank" rel="noopener noreferrer">
+          Chamar no WhatsApp
+        </a>
+        <span aria-hidden="true"> · </span>
+        <a href="tel:+5511949077562">Ligar Agora — (11) 94907-7562</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-sobre :global(h1) {
+    margin-top: 0.75rem;
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #0f172a;
+  }
+
+  .prose-sobre :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #0f172a;
+  }
+
+  .prose-sobre :global(p),
+  .prose-sobre :global(li) {
+    margin-top: 1.25rem;
+    line-height: 1.7;
+    color: #475569;
+  }
+
+  .prose-sobre :global(h1 + p) {
+    margin-top: 1.5rem;
+  }
+
+  .prose-sobre :global(ul) {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .prose-sobre :global(li) {
+    margin-top: 0;
+    border-left: 2px solid #0284c7;
+    padding-left: 1rem;
+  }
+
+  .prose-sobre :global(a) {
+    color: #0369a1;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-sobre :global(.cta-links) {
+    margin-top: 2rem;
+  }
+
+  .prose-sobre :global(.cta-links a) {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .prose-sobre :global(.cta-links a:hover) {
+    text-decoration: underline;
+  }
+
+  .prose-sobre :global(img) {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  areas: CollectionEntry<'areas'>[];
+  titulo?: string;
+  descricao?: string;
+  tituloId?: string;
+}
+
+const {
+  areas,
+  titulo,
+  descricao,
+  tituloId = 'areas-titulo',
+} = Astro.props;
+---
+
+<section
+  class="border-b border-slate-200 bg-white"
+  aria-labelledby={titulo ? tituloId : undefined}
+  aria-label={titulo ? undefined : 'Lista de áreas de atendimento'}
+>
+  <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    {
+      titulo && (
+        <h2 id={tituloId} class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          {titulo}
+        </h2>
+      )
+    }
+    {
+      descricao && (
+        <p class:list={['max-w-2xl text-slate-600', titulo ? 'mt-3' : '']}>{descricao}</p>
+      )
+    }
+
+    <ul
+      class:list={[
+        'grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3',
+        titulo || descricao ? 'mt-10' : '',
+      ]}
+    >
+      {
+        areas.map((area) => (
+          <li>
+            <a
+              href={`/areas-de-atendimento/${area.data.slug}`}
+              class="group block border-t border-slate-200 pt-4 transition"
+            >
+              <h3 class="text-lg font-semibold text-slate-900 transition group-hover:text-sky-700">
+                {area.data.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                {area.data.description}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

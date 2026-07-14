@@ -1,0 +1,27 @@
+---
+interface Props {
+  /** Variação curta de contexto, ex.: "no desentupimento de pia" ou "em Diadema" */
+  contexto: string;
+}
+
+const { contexto } = Astro.props;
+---
+
+<section class="border-b border-slate-200 bg-slate-50" aria-labelledby="por-que-escolher-titulo">
+  <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <h2 id="por-que-escolher-titulo" class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+      Por que escolher a Desentupidora Rápida Santo André
+    </h2>
+    <p class="mt-4 text-lg leading-relaxed text-slate-700">
+      Com mais de 30 anos de experiência, a Desentupidora Rápida Santo André atende com
+      agilidade, orçamento sem compromisso e equipe qualificada {contexto}. Trabalhamos em
+      Santo André, São Bernardo do Campo e Diadema, com foco em resolver o problema de forma
+      clara, segura e sem enrolação.
+    </p>
+    <ul class="mt-6 space-y-2 text-slate-700">
+      <li class="border-l-2 border-sky-600 pl-4">Atendimento rápido e orientação direta no primeiro contato</li>
+      <li class="border-l-2 border-sky-600 pl-4">Orçamento sem compromisso antes de iniciar o serviço</li>
+      <li class="border-l-2 border-sky-600 pl-4">Equipe experiente e equipamentos adequados para cada tipo de entupimento</li>
+    </ul>
+  </div>
+</section>

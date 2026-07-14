@@ -1,0 +1,135 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Schema from '../../components/Schema.astro';
+import PorQueEscolher from '../../components/PorQueEscolher.astro';
+import CtaContato from '../../components/CtaContato.astro';
+import empresa from '../../data/empresa.json';
+
+export async function getStaticPaths() {
+  const areas = await getCollection('areas');
+
+  return areas.map((area) => ({
+    params: { slug: area.data.slug },
+    props: { area },
+  }));
+}
+
+interface Props {
+  area: CollectionEntry<'areas'>;
+}
+
+const { area } = Astro.props;
+const { Content } = await render(area);
+
+const outrasAreas = (await getCollection('areas')).filter(
+  (item) => item.data.slug !== area.data.slug,
+);
+
+const paginaUrl = new URL(`/areas-de-atendimento/${area.data.slug}`, Astro.site).href;
+const siteUrl = Astro.site?.href ?? 'https://desentupidoraemsantoandre.app.br';
+
+const cidade =
+  area.data.cidade !== '[PENDENTE]' ? area.data.cidade : area.data.title;
+const contexto = `no atendimento em ${cidade}`;
+
+const areaServedSchema =
+  area.data.cidade !== '[PENDENTE]'
+    ? [area.data.cidade]
+    : empresa.areasAtendidas;
+---
+
+<BaseLayout title={area.data.title} description={area.data.description}>
+  <Schema
+    slot="schema"
+    variant="area-service"
+    name={empresa.nome}
+    telephone={`+${empresa.whatsapp}`}
+    areaServed={areaServedSchema}
+    url={siteUrl}
+    serviceType="Desentupimento"
+    service={{
+      name: `Desentupidora em ${cidade}`,
+      description: area.data.description,
+      url: paginaUrl,
+    }}
+  />
+
+  <article>
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+        <p class="text-sm font-semibold uppercase tracking-[0.16em] text-sky-700">
+          Áreas de atendimento
+        </p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+          {area.data.title}
+        </h1>
+        <p class="mt-5 text-lg leading-relaxed text-slate-600">
+          {area.data.description}
+        </p>
+      </div>
+    </header>
+
+    <section class="border-b border-slate-200 bg-white" aria-label="Detalhes da área">
+      <div class="prose-area mx-auto max-w-3xl px-4 py-12 sm:px-6">
+        <Content />
+      </div>
+    </section>
+
+    <PorQueEscolher contexto={contexto} />
+
+    <CtaContato
+      titulo={`Precisa de desentupidora em ${cidade}?`}
+      texto="Chame no WhatsApp ou ligue agora para orçamento sem compromisso."
+    />
+
+    <section class="border-t border-slate-200 bg-white" aria-labelledby="outras-areas-titulo">
+      <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+        <h2 id="outras-areas-titulo" class="text-2xl font-bold tracking-tight text-slate-900">
+          Outras áreas de atendimento
+        </h2>
+        <p class="mt-3 text-slate-600">
+          A {empresa.nome} também atende estas cidades da região.
+        </p>
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+          {
+            outrasAreas.map((item) => (
+              <li>
+                <a
+                  href={`/areas-de-atendimento/${item.data.slug}`}
+                  class="group block border-t border-slate-200 pt-4 transition"
+                >
+                  <span class="text-base font-semibold text-slate-900 transition group-hover:text-sky-700">
+                    {item.data.title}
+                  </span>
+                  <span class="mt-1 block text-sm text-slate-600">{item.data.description}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-area :global(p) {
+    margin-top: 1rem;
+    line-height: 1.7;
+    color: #475569;
+  }
+
+  .prose-area :global(p:first-child) {
+    margin-top: 0;
+  }
+
+  .prose-area :global(img) {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+</style>

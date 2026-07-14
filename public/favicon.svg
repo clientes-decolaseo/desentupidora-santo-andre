@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Desentupidora Rápida Santo André">
+  <rect width="64" height="64" rx="12" fill="#0f172a"/>
+  <path
+    fill="#38bdf8"
+    d="M32 10c-7.2 8.5-12 15.4-12 22.2A12 12 0 0 0 32 44a12 12 0 0 0 12-11.8C44 25.4 39.2 18.5 32 10z"
+  />
+  <path
+    fill="#e0f2fe"
+    d="M32 18c-4.2 5-7 9-7 13a7 7 0 1 0 14 0c0-4-2.8-8-7-13z"
+  />
+  <rect x="14" y="46" width="36" height="8" rx="2" fill="#0369a1"/>
+  <rect x="18" y="42" width="8" height="8" rx="1.5" fill="#0284c7"/>
+  <rect x="38" y="42" width="8" height="8" rx="1.5" fill="#0284c7"/>
+</svg>

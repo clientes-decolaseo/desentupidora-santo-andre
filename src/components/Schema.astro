@@ -1,0 +1,91 @@
+---
+interface ServiceSchema {
+  name: string;
+  description: string;
+  url: string;
+}
+
+interface Props {
+  name: string;
+  telephone: string;
+  areaServed: string[];
+  url: string;
+  service?: ServiceSchema;
+  /**
+   * Páginas de área: Service como raiz, com Plumber em provider
+   * e areaServed como City única.
+   */
+  variant?: 'plumber' | 'area-service';
+  serviceType?: string;
+}
+
+const {
+  name,
+  telephone,
+  areaServed,
+  url,
+  service,
+  variant = 'plumber',
+  serviceType = 'Desentupimento',
+} = Astro.props;
+
+const cities = areaServed.map((area) => ({
+  '@type': 'City',
+  name: area,
+}));
+
+const schema =
+  variant === 'area-service'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType,
+        provider: {
+          '@type': 'Plumber',
+          name,
+          telephone,
+        },
+        areaServed:
+          cities.length === 1
+            ? cities[0]
+            : cities,
+        ...(service?.url ? { url: service.url } : {}),
+        ...(service?.description ? { description: service.description } : {}),
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'Plumber',
+        name,
+        telephone,
+        url,
+        areaServed: cities,
+        ...(service
+          ? {
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Serviços de desentupimento',
+                itemListElement: [
+                  {
+                    '@type': 'Offer',
+                    itemOffered: {
+                      '@type': 'Service',
+                      name: service.name,
+                      description: service.description,
+                      url: service.url,
+                      provider: {
+                        '@type': 'Plumber',
+                        name,
+                        telephone,
+                        url,
+                      },
+                      areaServed: cities,
+                    },
+                  },
+                ],
+              },
+            }
+          : {}),
+      };
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

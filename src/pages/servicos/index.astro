@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Schema from '../../components/Schema.astro';
+import ServiceGrid from '../../components/ServiceGrid.astro';
+import CtaContato from '../../components/CtaContato.astro';
+import empresa from '../../data/empresa.json';
+
+const servicos = (await getCollection('servicos')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const metaDescription =
+  'Conheça todos os serviços de desentupimento da Desentupidora Rápida Santo André: pia, ralo, vaso sanitário, caixa de gordura, fossa, esgoto e hidrojateamento.';
+
+const siteUrl = Astro.site?.href ?? 'https://desentupidoraemsantoandre.app.br';
+const paginaUrl = new URL('/servicos/', Astro.site).href;
+---
+
+<BaseLayout
+  title="Serviços de Desentupimento em Santo André"
+  description={metaDescription}
+>
+  <Schema
+    slot="schema"
+    name={empresa.nome}
+    telephone={empresa.telefone}
+    areaServed={empresa.areasAtendidas}
+    url={siteUrl}
+    service={{
+      name: 'Serviços de desentupimento',
+      description: metaDescription,
+      url: paginaUrl,
+    }}
+  />
+
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-sky-700">
+        Serviços
+      </p>
+      <h1 class="mt-3 max-w-4xl text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+        Serviços de Desentupimento em Santo André
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-slate-600">
+        {metaDescription}
+      </p>
+    </div>
+  </header>
+
+  <ServiceGrid servicos={servicos} />
+
+  <CtaContato
+    titulo="Precisa de desentupimento agora?"
+    texto="Chame no WhatsApp ou ligue para orçamento sem compromisso."
+  />
+</BaseLayout>

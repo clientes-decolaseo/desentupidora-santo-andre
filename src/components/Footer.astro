@@ -1,0 +1,43 @@
+---
+import empresa from '../data/empresa.json';
+
+const telefoneHref = `tel:${empresa.telefone.replace(/\D/g, '')}`;
+const areas = ['Santo André', 'São Bernardo do Campo', 'Diadema'];
+---
+
+<footer class="border-t border-slate-200 bg-slate-950 text-slate-200">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2">
+    <div>
+      <p class="text-lg font-semibold text-white">{empresa.nome}</p>
+      <p class="mt-3">
+        <span class="sr-only">Telefone:</span>
+        <a
+          href={telefoneHref}
+          class="text-base font-medium text-sky-300 transition hover:text-sky-200"
+          aria-label={`Ligar para ${empresa.telefone}`}
+        >
+          {empresa.telefone}
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-slate-400">
+        Áreas atendidas
+      </p>
+      <ul class="mt-3 space-y-1">
+        {
+          areas.map((area) => (
+            <li class="text-base text-slate-200">{area}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-800">
+    <p class="mx-auto max-w-6xl px-4 py-4 text-sm text-slate-400 sm:px-6">
+      © {new Date().getFullYear()} {empresa.nome}. Atendimento em Santo André e região.
+    </p>
+  </div>
+</footer>

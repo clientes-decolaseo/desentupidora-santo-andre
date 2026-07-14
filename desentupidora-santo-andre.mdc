@@ -1,0 +1,82 @@
+---
+description: Regras do projeto Desentupidora Rápida Santo André (Astro)
+globs: "**/*"
+alwaysApply: true
+---
+
+# Projeto: Desentupidora Rápida Santo André
+
+Site institucional de serviço local (desentupimento), stack Astro, sem CMS,
+conteúdo em Content Collections. Modelo de negócio: empresa real, Service
+Area Business (sem endereço físico público).
+
+## Identidade fixa (nunca alterar sem aprovação explícita)
+
+- Nome da marca: "Desentupidora Rápida Santo André"
+- Telefone: (11) 94907-7562 — formato internacional: +5511949077562
+- Domínio: desentupidoraemsantoandre.app.br
+- Áreas atendidas: Santo André, São Bernardo do Campo, Diadema
+- Tempo de mercado: mais de 30 anos de experiência
+- Política comercial: orçamento sem compromisso, sem taxa de visita
+
+Qualquer menção a esses dados no código, copy ou schema deve usar exatamente
+estes valores. Não parafrasear, não arredondar, não inventar variações
+("quase 30 anos", "3 décadas", etc.) sem instrução explícita.
+
+## Princípio: Zero Fabricação
+
+- Nunca inventar depoimentos, avaliações, números de clientes atendidos,
+  prêmios, certificações ou nomes de bairros/condomínios atendidos.
+- Qualquer dado que não tenha sido fornecido explicitamente deve ser
+  marcado no código/conteúdo como `[CONFIRMAR: descrição do que falta]`.
+- Isso vale para: horário exato de funcionamento, formas de pagamento,
+  tempo médio de atendimento, garantia em dias/meses.
+- Nunca remover um `[CONFIRMAR]` substituindo por um valor plausível.
+  Só remover quando o valor real for fornecido pelo usuário.
+
+## Schema.org / SEO técnico
+
+- Tipo de negócio: `Plumber` dentro de schema `LocalBusiness`.
+- NUNCA incluir campo `address` com `streetAddress` — é Service Area
+  Business. Usar apenas `areaServed` com as 3 cidades.
+- Todo `telephone` no schema deve estar em formato E.164: +5511949077562.
+- Toda página nova (serviço ou área) precisa de:
+  - `<title>` único (não duplicar entre páginas)
+  - `meta description` única, até 160 caracteres
+  - JSON-LD específico do tipo de conteúdo (Service para spokes de serviço)
+
+## Arquitetura de conteúdo
+
+- Content Collections (`servicos`, `areas`) são a fonte única de verdade.
+  Não hardcodar listas de serviços/áreas duplicadas em componentes.
+- Novas páginas de bairro (sub-rotas de área) só devem ser criadas quando
+  o usuário fornecer explicitamente o nome do bairro — não gerar em lote
+  a partir de listas genéricas de bairros de Santo André (risco de
+  doorway pages / conteúdo templated).
+- Cada página de serviço deve ter texto único — não copiar o mesmo
+  parágrafo trocando só o nome do serviço. Variar estrutura e ênfase.
+
+## Git / Commits
+
+- Separar sempre commits arquiteturais (config, componentes, layout,
+  rotas) de commits de conteúdo (copy, frontmatter de collections).
+- Mensagens de commit em português, no formato:
+  `[arquitetura] descrição` ou `[conteudo] descrição`
+- Nunca commitar direto — sempre apresentar diff para aprovação do
+  usuário antes do commit.
+
+## Performance / Core Web Vitals
+
+- Usar sempre `<Image />` de `astro:assets`, nunca `<img>` puro.
+- Nenhuma dependência de framework JS (React/Vue) a menos que
+  explicitamente solicitado — o site é estático por padrão.
+- Rodar build e reportar tamanho de página (KB) após qualquer mudança
+  estrutural relevante.
+
+## Tom de voz do conteúdo
+
+- Frases curtas, linguagem direta, sem enrolação.
+- Foco em urgência real do usuário (entupimento é problema imediato),
+  sem exagero ou promessa que não possa ser cumprida.
+- Sempre reforçar: orçamento sem compromisso, sem taxa de visita,
+  mais de 30 anos de experiência — são os 3 diferenciais reais aprovados.
