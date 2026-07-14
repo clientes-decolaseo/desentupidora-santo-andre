@@ -6,7 +6,7 @@ import Schema from '../components/Schema.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
 import empresa from '../data/empresa.json';
 import faqs from '../data/faq-home.json';
-import imagemConfianca from '../assets/servicos/corredor-equipamento-mangueira.jpg';
+import imagemConfianca from '../assets/servicos/equipe-trabalho-campo.jpg';
 
 const servicos = (await getCollection('servicos')).sort(
   (a, b) => a.data.order - b.data.order,
@@ -116,13 +116,13 @@ const passos = [
       </p>
       <Image
         src={imagemConfianca}
-        alt="Equipamento profissional de desentupimento pronto para atendimento"
-        width={665}
-        height={1182}
+        alt="Equipe uniformizada em trabalho de campo, movendo blocos de concreto com alavanca"
+        width={768}
+        height={511}
         format="webp"
         quality={80}
-        sizes="(min-width: 48rem) 665px, calc(100vw - 2rem)"
-        class="mt-8 w-full max-w-[665px] h-auto"
+        sizes="(min-width: 48rem) 768px, calc(100vw - 2rem)"
+        class="mt-8 w-full max-w-3xl h-auto"
       />
       <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
