@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@import "@fontsource-variable/outfit/wght.css";
 
 @theme {
-  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 summary::-webkit-details-marker {
