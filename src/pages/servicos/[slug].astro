@@ -28,7 +28,7 @@ const outrosServicos = (await getCollection('servicos'))
   .sort((a, b) => a.data.order - b.data.order);
 
 const paginaUrl = new URL(`/servicos/${servico.data.slug}`, Astro.site).href;
-const siteUrl = Astro.site?.href ?? 'https://desentupidoraemsantoandre.app.br';
+const siteUrl = Astro.site?.href ?? 'https://desentupidorasantoandre.app.br';
 
 const contexto = `neste atendimento de ${servico.data.title.toLowerCase()}`;
 ---

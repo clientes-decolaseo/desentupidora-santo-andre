@@ -28,7 +28,7 @@ const outrasAreas = (await getCollection('areas')).filter(
 );
 
 const paginaUrl = new URL(`/areas-de-atendimento/${area.data.slug}`, Astro.site).href;
-const siteUrl = Astro.site?.href ?? 'https://desentupidoraemsantoandre.app.br';
+const siteUrl = Astro.site?.href ?? 'https://desentupidorasantoandre.app.br';
 
 const cidade =
   area.data.cidade !== '[PENDENTE]' ? area.data.cidade : area.data.title;
