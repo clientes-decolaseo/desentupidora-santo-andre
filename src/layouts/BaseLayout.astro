@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WebMcp from '../components/WebMcp.astro';
 import '../styles/global.css';
 import empresa from '../data/empresa.json';
 import outfitLatinWoff2 from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
@@ -45,5 +46,6 @@ const pageTitle = title.includes(empresa.nome)
       <slot />
     </main>
     <Footer />
+    <WebMcp />
   </body>
 </html>

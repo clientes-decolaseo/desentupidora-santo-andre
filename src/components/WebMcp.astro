@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import empresa from '../data/empresa.json';
+
+const servicos = (await getCollection('servicos')).sort((a, b) => a.data.order - b.data.order);
+const areas = await getCollection('areas');
+
+// Os títulos das coleções trazem a cidade ("... em Santo André"); aqui ela sai para
+// não contradizer a cidade escolhida pelo agente.
+const semCidade = (titulo: string) => titulo.replace(/\s+em\s+Santo André\s*$/i, '');
+
+const data = {
+  empresa: {
+    nome: empresa.nome,
+    telefone: `+${empresa.whatsapp}`,
+    whatsapp: empresa.whatsapp,
+    orcamento: 'Orçamento sem compromisso, sem taxa de visita',
+  },
+  servicos: servicos.map((s) => ({ slug: s.data.slug, nome: semCidade(s.data.title) })),
+  areas: areas.map((a) => ({ slug: a.data.slug, nome: a.data.cidade })),
+};
+
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<script type="application/json" id="webmcp-data" set:html={json} />
+<script>
+  import '../scripts/webmcp';
+</script>
